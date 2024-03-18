@@ -14,16 +14,20 @@
                     <div class="mb-3">
                         <label for="name" class="col-md-2 col-form-label">Nama Kriteria</label>
                         <div class="col-md-12">
-                            <input name="name" class="form-control" type="text" id="name" placeholder="Masukkan nama kriteria" required/>
+                            <input name="name" class="form-control" type="text" id="name" placeholder="Masukkan nama kriteria" required />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis Kriteria</label>
-                        <select name="jenis" class="form-select" id="jenis" aria-label="Default select example" required>
+                        <div class="col-md-12">
+                            <input name="name" class="form-control" type="text" id="jenis" placeholder="Masukkan jenis kriteria" required />
+                        </div>
+
+                        <!-- <select name="jenis" class="form-select" id="jenis" aria-label="Default select example" required>
                             <option selected>Open this select menu</option>
                             <option value="Benefit">Benefit</option>
                             <option value="Cost">Cost</option>
-                        </select>
+                        </select> -->
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
