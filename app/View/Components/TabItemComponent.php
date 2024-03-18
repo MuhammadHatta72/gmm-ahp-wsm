@@ -10,6 +10,7 @@ class TabItemComponent extends Component
     protected $key;
     protected $icon;
     protected $title;
+    protected $active;
 
     /**
      * Create a new component instance.
@@ -20,10 +21,12 @@ class TabItemComponent extends Component
         string $key,
         string $title,
         string $icon = '',
+        string $active = '',
     ) {
         $this->key = $key;
         $this->icon = $icon;
         $this->title = $title;
+        $this->active = $active;
     }
 
     /**
@@ -36,6 +39,7 @@ class TabItemComponent extends Component
         return view('components.tab-item-component', [
             'key' => $this->key,
             'icon' => $this->icon,
+            'active' => $this->active,
             'title' => $this->title,
         ]);
     }

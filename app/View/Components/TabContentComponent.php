@@ -8,15 +8,17 @@ class TabContentComponent extends Component
 {
 
     protected $key;
+    protected $active;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $key)
+    public function __construct(string $key, string $active = '')
     {
         $this->key = $key;
+        $this->active = $active;
     }
 
     /**
@@ -27,7 +29,8 @@ class TabContentComponent extends Component
     public function render()
     {
         return view('components.tab-content-component', [
-            'key' => $this->key
+            'key' => $this->key,
+            'active' => $this->active,
         ]);
     }
 }
