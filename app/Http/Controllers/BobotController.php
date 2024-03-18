@@ -31,24 +31,26 @@ class BobotController extends Controller
         $data = array_values($_req);
         $rand_token = bin2hex(random_bytes(16));
 
-        $store = [];
         $status = false;
-
-        foreach ($data as $bobot) {
-            foreach ($bobot as $index => $_bobot) {
-                $store[] = [
-                    'id_kriteria' => $index,
-                    'bobot' => $_bobot,
-                    'user_id' => $request->user()->id,
-                    'rand_token' => $rand_token,
-                ];
-            }
-        }
 
         DB::beginTransaction();
 
         try {
+            $store = [];
+
+            foreach ($data as $bobot) {
+                foreach ($bobot as $index => $_bobot) {
+                    $store[] = [
+                        'id_kriteria' => $index,
+                        'bobot' => $_bobot,
+                        'user_id' => $request->user()->id,
+                        'rand_token' => $rand_token,
+                    ];
+                }
+            }
+
             Bobot::insert($store);
+
             $status = true;
         } catch (\Throwable $th) {
             DB::rollBack();

@@ -1,18 +1,17 @@
 <?php
 
+namespace App\Helpers;
+
 class GeoMetricMean
 {
-    protected $numbers;
-
-    public function __construct(array $numbers)
+    public function __construct()
     {
-        $this->numbers = $numbers;
     }
 
-    static public function count()
+    static public function count(array $numbers)
     {
-        $count = count(self::$numbers);
-        $product = array_product(self::$numbers);
+        $count = count($numbers);
+        $product = array_product($numbers);
 
         $pow = pow($product, 1 / $count);
 

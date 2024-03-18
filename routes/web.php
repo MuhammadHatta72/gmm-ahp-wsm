@@ -56,7 +56,9 @@ Route::name('Bobot::')->prefix('bobot')->group(function () {
 });
 
 Route::name('Hasil::')->prefix('hasil')->group(function () {
-    Route::get('/',  [HasilController::class, 'index'])->name('index');
+    Route::resource('/', HasilController::class)
+        ->only('index', 'store')
+        ->parameter('', 'hasil');
 });
 
 Route::name('User::')->prefix('user')->group(function () {
