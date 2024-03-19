@@ -48,8 +48,6 @@ class HasilController extends Controller
             foreach ($bobot as $idKriteria => $bobots) {
                 $numbers = [];
 
-                // collect($bobots)->each(fn ($_bobot) => dump($_bobot->rand_token));
-
                 foreach ($bobots as  $value) {
                     $numbers[] = $value->bobot;
                 }

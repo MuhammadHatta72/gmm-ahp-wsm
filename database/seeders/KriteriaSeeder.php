@@ -16,9 +16,11 @@ class KriteriaSeeder extends Seeder
     {
         $gmm_criteria = ['Utilisasi', 'Availability', 'Reliability', 'Jam idle', 'Jam tersedia', 'Jam operasi', 'Jumlah BDA', 'Jam BDA'];
 
+        /** parent */
         collect($gmm_criteria)->each(function ($criteria) use ($gmm_criteria) {
+            /** child */
             collect($gmm_criteria)->each(function ($_criteria) use ($criteria) {
-                // collect(['Benefit', 'Cost'])->each(function ($_criteria) use ($criteria) {
+                /** insert to database */
                 Kriteria::create(['name' => $criteria, 'jenis' => $_criteria]);
             });
         });
