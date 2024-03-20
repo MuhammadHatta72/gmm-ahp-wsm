@@ -33,12 +33,12 @@ Route::middleware(['auth'])->prefix('setting')->group(function () {
     Route::post('/save-password', [SettingController::class, 'savePassword'])->name('savePassword');
 });
 
-Route::name('Alat::')->prefix('alat')->group(function(){
+Route::name('Alat::')->prefix('alat')->group(function () {
     Route::get('/',  [AlatController::class, 'index'])->name('index');
     Route::post('/import',  [AlatController::class, 'import'])->name('import');
 });
 
-Route::name('Kriteria::')->prefix('kriteria')->group(function(){
+Route::name('Kriteria::')->prefix('kriteria')->group(function () {
     Route::get('/',  [KriteriaController::class, 'index'])->name('index');
     Route::get('/create', [KriteriaController::class, 'create'])->name('create');
     Route::post('/store', [KriteriaController::class, 'store'])->name('store');
@@ -47,17 +47,21 @@ Route::name('Kriteria::')->prefix('kriteria')->group(function(){
     Route::delete('/destroy/{id}', [KriteriaController::class, 'destroy'])->name('destroy');
 });
 
-Route::name('Bobot::')->prefix('bobot')->group(function(){
+Route::name('Bobot::')->prefix('bobot')->group(function () {
     Route::get('/',  [BobotController::class, 'index'])->name('index');
     Route::get('/create', [BobotController::class, 'create'])->name('create');
-    //
+    Route::resource('/', BobotController::class)
+        ->only('store', 'destroy')
+        ->parameter('', 'bobot');
 });
 
-Route::name('Hasil::')->prefix('hasil')->group(function(){
-    Route::get('/',  [HasilController::class, 'index'])->name('index');
+Route::name('Hasil::')->prefix('hasil')->group(function () {
+    Route::resource('/', HasilController::class)
+        ->only('index', 'store')
+        ->parameter('', 'hasil');
 });
 
-Route::name('User::')->prefix('user')->group(function(){
+Route::name('User::')->prefix('user')->group(function () {
     Route::get('/',  [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::post('/store', [UserController::class, 'store'])->name('store');
