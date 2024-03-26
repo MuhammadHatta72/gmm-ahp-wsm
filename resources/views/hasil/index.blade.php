@@ -9,16 +9,16 @@
     <x-SessionAlertComponent />
     <div class="nav-align-top mb-4">
         <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-            <x-TabItemComponent title="GMM" key="gmm" />
-            <x-TabItemComponent title="AHP" key="ahp" active="active" />
+            <x-TabItemComponent title="GMM" key="gmm" active="active" />
+            <x-TabItemComponent title="AHP" key="ahp" />
         </ul>
         <div class="tab-content">
-            <x-TabContentComponent key="gmm">
+            <x-TabContentComponent key="gmm" active="active">
                 <button type="button" class="btn btn-primary mb-3" onclick="gmmCalcuate()">Hitung GMM</button>
                 <hr class="dropdown-divider" />
                 <x-TableBobotShowComponent />
             </x-TabContentComponent>
-            <x-TabContentComponent key="ahp" active="active">
+            <x-TabContentComponent key="ahp">
                 <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung AHP</button>
                 <hr class="dropdown-divider" />
 
