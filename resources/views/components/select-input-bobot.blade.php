@@ -11,14 +11,14 @@
     <option value="7">7</option>
     <option value="8">8</option>
     <option value="9">9</option>
-    <option value="0,50">0,50</option>
-    <option value="0,33 ">0,33 </option>
-    <option value="0,25">0,25</option>
-    <option value="0,20">0,20</option>
-    <option value="0,17">0,17</option>
-    <option value="0,14">0,14</option>
-    <option value="0,13">0,13</option>
-    <option value="0,11">0,11</option>
+    <option value="0.50">0.50</option>
+    <option value="0.33">0.33 </option>
+    <option value="0.25">0.25</option>
+    <option value="0.20">0.20</option>
+    <option value="0.17">0.17</option>
+    <option value="0.14">0.14</option>
+    <option value="0.13">0.13</option>
+    <option value="0.11">0.11</option>
 </select>
 
 @else

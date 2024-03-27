@@ -16,7 +16,10 @@
             <x-TabContentComponent key="gmm" active="active">
                 <button type="button" class="btn btn-primary mb-3" onclick="gmmCalcuate()">Hitung GMM</button>
                 <hr class="dropdown-divider" />
+
                 <x-TableBobotShowComponent />
+                <hr class="dropdown-divider mb-3" />
+
             </x-TabContentComponent>
             <x-TabContentComponent key="ahp">
                 <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung AHP</button>

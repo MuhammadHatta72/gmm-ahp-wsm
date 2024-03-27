@@ -13,10 +13,16 @@ class Geomean extends Model
     protected $fillable = [
         'kriteria_id',
         'hasil',
+        'user_id',
     ];
 
     public function Kriteria(): BelongsTo
     {
         return $this->belongsTo(Kriteria::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

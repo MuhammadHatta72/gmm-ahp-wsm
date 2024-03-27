@@ -19,7 +19,7 @@
                 <td>{{ $index }}</td>
 
                 @foreach($criteria as $_index => $_criteria)
-                <td>{{ $anhipro->firstWhere('kriteria_id', $_criteria->id)?->hasil }}</td>
+                <td>{{ $anhipro?->firstWhere('kriteria_id', $_criteria->id)?->hasil }}</td>
                 @endforeach
 
                 @php
@@ -32,7 +32,7 @@
                 <td></td>
                 @foreach($criteria_gb_jenis as $index => $criteria)
 
-                <td>{{ $pairComparisonMatrix->firstWhere('name', $index)->hasil }}</td>
+                <td>{{ $pairComparisonMatrix?->firstWhere('name', $index)?->hasil }}</td>
 
                 @endforeach
             </tr>

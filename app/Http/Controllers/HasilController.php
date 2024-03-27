@@ -31,7 +31,7 @@ class HasilController extends Controller
         $name = $request->input('calculate');
 
         $status = false;
-        $message = null;
+        $message = 'Tidak dapat menghitung GMM/AHP saat ini. Silakan coba lagi nanti';
 
         if ($name == 'gmm') {
             [$status, $message] = $this->gmm_calculate();
