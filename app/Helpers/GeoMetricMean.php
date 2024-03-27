@@ -4,10 +4,6 @@ namespace App\Helpers;
 
 class GeoMetricMean
 {
-    public function __construct()
-    {
-    }
-
     static public function count(array $numbers)
     {
         $count = count($numbers);

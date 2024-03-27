@@ -36,7 +36,7 @@
 
                                 @foreach($criteria as $_index => $_criteria)
                                 <td>
-                                    <input class="form-control" type="number" step="0.01" id="{{ $_criteria->id}}" name="{{ strtolower($index) }}[{{ $_criteria->id }}]" {{ $indexing > $_index ? 'disabled' : ''}} value="{{ $indexing == $_index ? '1.00' : '' }}" max="1.00" min="0.00" {{ $indexing == $_index ? 'readonly' : '' }} />
+                                    <x-SelectInputBobot id="{{ $_criteria->id }}" name="{{ strtolower($index) }}[{{ $_criteria->id }}]" dvalue="{{ $indexing == $_index }}" readonly="{{ $indexing == $_index }}" disabled="{{ $indexing > $_index }}" />
                                 </td>
                                 @endforeach
 
