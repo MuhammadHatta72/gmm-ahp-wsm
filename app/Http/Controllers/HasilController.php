@@ -86,7 +86,7 @@ class HasilController extends Controller
         return [$status, $message];
     }
 
-    protected function ahp_calculate()
+    protected function ahp_calculate(): array
     {
         $geomean = Geomean::all();
         $criteria = Kriteria::all();
