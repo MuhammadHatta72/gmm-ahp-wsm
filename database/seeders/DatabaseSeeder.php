@@ -14,13 +14,5 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
-
-        if (app()->environment() == 'local') {
-            $this->call(KriteriaSeeder::class);
-            $this->call(GeomeansTableSeeder::class);
-            $this->call(KriteriaTableSeeder::class);
-            $this->call(BobotTableSeeder::class);
-            $this->call(AlatTableSeeder::class);
-        }
     }
 }
