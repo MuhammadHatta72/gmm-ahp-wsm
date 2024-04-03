@@ -1,4 +1,7 @@
 <div class="card mt-5">
+    <div class="card-body">
+        <h5 class="card-title">{{ $user->name }}</h5>
+    </div>
     <div class="table-responsive text-nowrap">
         <table class="table table-striped">
             <thead>
@@ -10,7 +13,6 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                <!-- idnex sould be [$index, $_index] -->
                 @php
                 $indexing = 0
                 @endphp

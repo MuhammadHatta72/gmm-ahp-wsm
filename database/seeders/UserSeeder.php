@@ -24,21 +24,20 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        if (app()->environment() == 'local') {
-            DB::table('users')->insert([
-                'name' => 'Administrator',
-                'email' => 'admin1@gmail.com',
-                'username' => 'admin1',
-                'password' => Hash::make('password'),
-                'role' => 'admin',
-            ]);
-            DB::table('users')->insert([
-                'name' => 'Administrator',
-                'email' => 'admin2@gmail.com',
-                'username' => 'admin2',
-                'password' => Hash::make('password'),
-                'role' => 'admin',
-            ]);
-        }
+        DB::table('users')->insert([
+            'name' => 'Vendor',
+            'email' => 'vendor@gmail.com',
+            'username' => 'vendor_tpk',
+            'password' => Hash::make('password'),
+            'role' => 'vendor',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Teknik',
+            'email' => 'teknik@gmail.com',
+            'username' => 'teknik_tpk',
+            'password' => Hash::make('password'),
+            'role' => 'teknik',
+        ]);
     }
 }

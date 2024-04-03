@@ -8,14 +8,15 @@
     <div class="card">
         <div class="card-header">
             <h4>Data Alat Berat</h4>
+            @if(request()->user()->role == 'admin')
             <form action="{{ route('Alat::import')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="input-group">
-                    <input type="file" name="file" class="form-control" id="inputGroupFile04"
-                        aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+                    <input type="file" name="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
                     <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">Import</button>
                 </div>
             </form>
+            @endif
         </div>
         <div class="card-body">
             @if(session('success'))

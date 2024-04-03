@@ -9,47 +9,35 @@
     <x-SessionAlertComponent />
     <div class="nav-align-top mb-4">
         <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-            <x-TabItemComponent title="GMM" key="gmm" active="active" />
-            <x-TabItemComponent title="AHP" key="ahp" />
+            <x-TabItemComponent title="GMM" key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}" />
+            <x-TabItemComponent title="AHP" key="ahp" active="{{ request()->get('name') == 'ahp' ? 'active' : '' }}" />
+            <x-TabItemComponent title="WSM" key="wsm" active="{{ request()->get('name') == 'wsm' ? 'active' : '' }}" />
         </ul>
         <div class="tab-content">
-            <x-TabContentComponent key="gmm" active="active">
+            <x-TabContentComponent key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}">
+                @if(request()->user()->role == 'admin')
                 <button type="button" class="btn btn-primary mb-3" onclick="gmmCalcuate()">Hitung GMM</button>
+                @endif
                 <hr class="dropdown-divider" />
+
                 <x-TableBobotShowComponent />
-            </x-TabContentComponent>
-            <x-TabContentComponent key="ahp">
-                <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung AHP</button>
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Matriks Perbandingan Pasangan</p>
-                <x-TablePairComparisonMatrixShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Menghitung Bobot Prioritas</p>
-                <x-TableCalculatePriorityWeightsShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Mengalikan matriks dengan PW</p>
-                <x-TableCalculatingConsistencyRatioShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Membagi hasil dari perhitungan diatas dengan PW</p>
-                <x-TableDevideConsistencyRatioWithPwShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Menghitung λmaks</p>
-                <x-TableMenghitungAmaksShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Menghitung Consistency Index(CI)</p>
-                <x-TableMenghitungConsistencyIndexCIShowComponent />
-                <hr class="dropdown-divider" />
-
-                <p class="text-center">Menghitung Consistency Ratio(CR)</p>
-                <x-TableMenghitungConsistencyRatioCRShowComponent />
                 <hr class="dropdown-divider mb-3" />
 
+            </x-TabContentComponent>
+            <x-TabContentComponent key="ahp" active="{{ request()->get('name') == 'ahp' ? 'active' : '' }}">
+                @if(request()->user()->role == 'admin')
+                <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung AHP</button>
+                @endif
+                <hr class="dropdown-divider" />
+
+                <x-TableAhpShowComponent />
+            </x-TabContentComponent>
+            <x-TabContentComponent key="wsm" active="{{ request()->get('name') == 'wsm' ? 'active' : '' }}">
+                @if(request()->user()->role == 'admin')
+                <button type="button" class="btn btn-primary mb-3" onclick="wsmCalcuate()">Hitung WSM</button>
+                @endif
+
+                <x-TableWsmShowComponent />
             </x-TabContentComponent>
         </div>
     </div>
@@ -67,6 +55,11 @@
     <input type="hidden" name="calculate" value="ahp">
 </form>
 
+<form action="{{ route('Hasil::store') }}" method="post" id="form-wsm-calculate">
+    @csrf
+    <input type="hidden" name="calculate" value="wsm">
+</form>
+
 </div>
 @include('layouts.delete-confirm')
 @endsection
@@ -81,6 +74,13 @@
 
     function ahpCalcuate() {
         const form_calculate = document.getElementById('form-ahp-calculate')
+        if (form_calculate) {
+            form_calculate.submit()
+        }
+    }
+
+    function wsmCalcuate() {
+        const form_calculate = document.getElementById('form-wsm-calculate')
         if (form_calculate) {
             form_calculate.submit()
         }

@@ -52,11 +52,11 @@ class BobotController extends Controller
             Bobot::insert($store);
 
             $status = true;
+
+            DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-
-        DB::commit();
 
         return $status
             ? redirect()->route('Bobot::index')->with('success', 'bobot berhasil dibuat!')

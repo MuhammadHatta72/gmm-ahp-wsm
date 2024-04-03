@@ -20,7 +20,7 @@
 
                 @php
                 $hasil = number_format(
-                $anhipro->firstWhere('kriteria_id', $_criteria->id)?->hasil / $pairComparisonMatrix->firstWhere('name', $_criteria->jenis)?->hasil,
+                $pairComparisonMatrix?->firstWhere('name', $_criteria->jenis)?->hasil != 0 ? $anhipro?->firstWhere('kriteria_id', $_criteria->id)?->hasil / $pairComparisonMatrix?->firstWhere('name', $_criteria->jenis)?->hasil : 1,
                 3
                 );
                 @endphp

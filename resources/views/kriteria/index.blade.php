@@ -8,7 +8,9 @@
     <div class="card">
         <div class="card-header">
             <h4>Data Kriteria</h4>
+            @if(request()->user()->role == 'admin')
             <a href="{{ route('Kriteria::create') }}" class="btn btn-primary">+ Tambah Data</a>
+            @endif
         </div>
         <div class="card-body">
             @if(session('success'))
@@ -35,17 +37,11 @@
                             <td>{{ $k->name }}</td>
                             <td>{{ $k->jenis }}</td>
                             <td>
-                            <form action="{{ route('Kriteria::destroy', $k->id) }}" method="post" class="d-inline" id="deleteForm{{ $k->id }}">
-                                    <a href="{{ route('Kriteria::edit', $k->id) }}" class="btn btn-outline-info"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true" data-bs-original-title="<span>Edit</span>"><i
-                                            class="bx bx-edit-alt me-1"></i></a>
+                                <form action="{{ route('Kriteria::destroy', $k->id) }}" method="post" class="d-inline" id="deleteForm{{ $k->id }}">
+                                    <a href="{{ route('Kriteria::edit', $k->id) }}" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="<span>Edit</span>"><i class="bx bx-edit-alt me-1"></i></a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" name="delete" class="btn btn-outline-danger"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true" data-bs-original-title="<span>Delete</span>"
-                                        onclick="showDeleteConfirmationModal('{{ $k->id }}')">
+                                    <button type="button" name="delete" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="<span>Delete</span>" onclick="showDeleteConfirmationModal('{{ $k->id }}')">
                                         <i class="bx bx-trash me-1"></i>
                                     </button>
                                 </form>
@@ -72,6 +68,7 @@
         justify-content: space-between;
         align-items: center;
     }
+
 </style>
 
 <script>
@@ -79,7 +76,7 @@
         var deleteForm = document.getElementById('deleteForm' + formId);
         if (deleteForm) {
             $('#deleteConfirmationModal').modal('show');
-            document.getElementById('confirmDeleteButton').onclick = function () {
+            document.getElementById('confirmDeleteButton').onclick = function() {
                 deleteData(formId);
             };
         }
@@ -91,4 +88,5 @@
             deleteForm.submit();
         }
     }
+
 </script>
