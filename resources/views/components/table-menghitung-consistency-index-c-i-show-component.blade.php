@@ -2,7 +2,7 @@
     <table class="table table-striped">
         <tbody class="table-border-bottom-0">
             <tr>
-                <td>λmaks</td>
+                <td>Consistency Index</td>
                 <td>=</td>
                 <td>
                     @php

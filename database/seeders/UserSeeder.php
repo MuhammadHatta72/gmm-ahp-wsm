@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'admin',
             ]);
+
             DB::table('users')->insert([
                 'name' => 'Administrator 2',
                 'email' => 'admin2@gmail.com',
@@ -39,6 +40,38 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'admin',
             ]);
+
+            DB::table('users')->insert([
+                'name' => 'Vendor',
+                'email' => 'vendor1@gmail.com',
+                'username' => 'vendor1',
+                'password' => Hash::make('password'),
+                'role' => 'vendor',
+            ]);
+
+            DB::table('users')->insert([
+                'name' => 'Teknik',
+                'email' => 'teknik1@gmail.com',
+                'username' => 'teknik1',
+                'password' => Hash::make('password'),
+                'role' => 'teknik',
+            ]);
         }
+
+        DB::table('users')->insert([
+            'name' => 'Vendor',
+            'email' => 'vendor@gmail.com',
+            'username' => 'vendor_tpk',
+            'password' => Hash::make('password'),
+            'role' => 'vendor',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Teknik',
+            'email' => 'teknik@gmail.com',
+            'username' => 'teknik_tpk',
+            'password' => Hash::make('password'),
+            'role' => 'teknik',
+        ]);
     }
 }
