@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Criteria;
 use Illuminate\Http\Request;
-use App\Models\Kriteria;
 
 class KriteriaController extends Controller
 {
     public function index()
     {
-        $kriteria = Kriteria::all();
+        $kriteria = Criteria::all();
         return view('kriteria.index', compact('kriteria'));
     }
 
@@ -20,7 +20,7 @@ class KriteriaController extends Controller
 
     public function store(Request $request)
     {
-        $kriteria = new Kriteria;
+        $kriteria = new Criteria;
         $kriteria->name = $request->name;
         $kriteria->jenis = $request->jenis;
         $kriteria->save();
@@ -32,13 +32,13 @@ class KriteriaController extends Controller
 
     public function edit($id)
     {
-        $kriteria = Kriteria::find($id);
+        $kriteria = Criteria::find($id);
         return view('kriteria.edit', ['kriteria' => $kriteria]);
     }
 
     public function update(Request $request, $id)
     {
-        $kriteria = Kriteria::find($id);
+        $kriteria = Criteria::find($id);
         $kriteria->name = $request->name;
         $kriteria->email = $request->jenis;
         $request->session()->flash('success', 'Data berhasil diperbarui!');
@@ -48,7 +48,7 @@ class KriteriaController extends Controller
 
     public function destroy($id)
     {
-        $kriteria = Kriteria::find($id);
+        $kriteria = Criteria::find($id);
         $kriteria->delete();
         session()->flash('success', 'Data berhasil dihapus!');
         return redirect()->route('Kriteria::index');

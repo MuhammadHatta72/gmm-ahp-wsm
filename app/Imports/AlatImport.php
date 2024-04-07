@@ -31,10 +31,9 @@ class AlatImport implements WithStartRow
             ]
         );
     }
-    
+
     public function startRow(): int
     {
         return 2;
     }
-    
 }
