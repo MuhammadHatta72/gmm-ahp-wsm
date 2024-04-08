@@ -6,6 +6,7 @@ use App\Http\Controllers\AlatController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\BobotController;
 use App\Http\Controllers\HasilController;
+use App\Http\Controllers\HasilExportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 
@@ -59,6 +60,7 @@ Route::name('Hasil::')->prefix('hasil')->group(function () {
     Route::resource('/', HasilController::class)
         ->only('index', 'store')
         ->parameter('', 'hasil');
+    Route::post('/export', HasilExportController::class)->name('export');
 });
 
 Route::name('User::')->prefix('user')->group(function () {

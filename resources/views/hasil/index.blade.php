@@ -7,6 +7,18 @@
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Hasil</h4>
 
     <x-SessionAlertComponent />
+
+    @if(request()->user()->role == 'admin')
+    <div class="d-flex flex-row-reverse">
+        <form action="{{ route('Hasil::export') }}" method="post">
+            @csrf
+            @method('POST')
+
+            <button class="btn btn-primary mb-3">Export</button>
+        </form>
+    </div>
+    @endif
+
     <div class="nav-align-top mb-4">
         <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
             <x-TabItemComponent title="GMM" key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}" />
