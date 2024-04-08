@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
-use App\Models\Kriteria;
 use App\Models\Alat;
 use App\Charts\AlatChart;
+use App\Models\Criteria;
 
 class HomeController extends Controller
 {
@@ -28,10 +29,9 @@ class HomeController extends Controller
     public function index(AlatChart $alatChart)
     {
         $user = Auth::user();
-        $kriteria = Kriteria::all();
+        $kriteria = Criteria::all();
         // $alat = Alat::all();
         $alatChart = $alatChart->build();
         return view('home', compact('user', 'kriteria', 'alatChart'));
-        
     }
 }

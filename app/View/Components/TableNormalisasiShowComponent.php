@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\WsmNormalization;
+use App\Models\WsmPrepareNormalization;
 use Illuminate\View\Component;
 
 class TableNormalisasiShowComponent extends Component
@@ -24,7 +24,7 @@ class TableNormalisasiShowComponent extends Component
      */
     public function render()
     {
-        $normalisasi = WsmNormalization::all();
+        $normalisasi = WsmPrepareNormalization::all();
 
         return view('components.table-normalisasi-show-component', compact('normalisasi'));
     }

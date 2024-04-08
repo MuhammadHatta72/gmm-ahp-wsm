@@ -24,7 +24,7 @@ class TableWSMHasilShowComponent extends Component
      */
     public function render()
     {
-        $wsm_result_normalisasi = WsmResultNormalization::all();
+        $wsm_result_normalisasi = WsmResultNormalization::query()->orderBy('rangking')->get();
 
         return view('components.table-w-s-m-hasil-show-component', compact('wsm_result_normalisasi'));
     }
