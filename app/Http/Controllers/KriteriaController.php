@@ -20,10 +20,11 @@ class KriteriaController extends Controller
 
     public function store(Request $request)
     {
-        $kriteria = new Criteria;
-        $kriteria->name = $request->name;
-        $kriteria->jenis = $request->jenis;
-        $kriteria->save();
+        Criteria::updateOrCreate([
+            'name' => $request->name
+        ], [
+            'jenis' => $request->jenis
+        ]);
 
         session()->flash('success', 'Data berhasil disimpan!');
 

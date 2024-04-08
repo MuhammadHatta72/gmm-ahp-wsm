@@ -14,7 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
-        $this->call(KriteriaSeeder::class);
         $this->call(CriteriaSeeder::class);
+
+        // reverse seed
+        $this->call(AlatTableSeeder::class);
+        $this->call(KriteriaTableSeeder::class);
+        $this->call(BobotTableSeeder::class);
+        $this->call(GeomeansTableSeeder::class);
     }
 }

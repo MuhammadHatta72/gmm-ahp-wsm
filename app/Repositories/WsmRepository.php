@@ -84,11 +84,11 @@ class WsmRepository
             }
 
             /** calculate the number */
-            foreach ($equipments as $equipment) {
-                $_jam_tersedia = WeightedSumModel::number_devide_max_of($equipment->jam_tersedia, $alternatif_jam_tersedia) * 100;
-                $_jam_operasi  = WeightedSumModel::number_devide_max_of($equipment->jam_operasi, $alternatif_jam_operasi) * 100;
-                $_jam_bda      = WeightedSumModel::number_devide_max_of($equipment->jam_bda, $alternatif_jam_bda) * 100;
-                $_jumlah_bda   = WeightedSumModel::number_devide_max_of($equipment->jumlah_bda, $alternatif_jumlah_bda) * 100;
+            foreach ($equipments as $index => $equipment) {
+                $_jam_tersedia = WeightedSumModel::number_devide_max_of($equipment->jam_tersedia, $alternatif_jam_tersedia);
+                $_jam_operasi  = WeightedSumModel::number_devide_max_of($equipment->jam_operasi, $alternatif_jam_operasi);
+                $_jam_bda      = WeightedSumModel::number_devide_max_of($equipment->jam_bda, $alternatif_jam_bda);
+                $_jumlah_bda   = WeightedSumModel::number_devide_max_of($equipment->jumlah_bda, $alternatif_jumlah_bda);
 
                 $_store[] = [
                     'kode'         => $equipment->kode,
@@ -97,10 +97,10 @@ class WsmRepository
                     'availability' => $equipment->availability,
                     'reliability'  => $equipment->reliability,
                     'idle'         => $equipment->idle,
-                    'jam_tersedia' => number_format($_jam_tersedia, 2),
-                    'jam_operasi'  => number_format($_jam_operasi, 2),
-                    'jam_bda'      => number_format($_jam_bda, 2),
-                    'jumlah_bda'   => number_format($_jumlah_bda, 2),
+                    'jam_tersedia' => $_jam_tersedia * 100,
+                    'jam_operasi'  => $_jam_operasi * 100,
+                    'jam_bda'      => $_jam_bda * 100,
+                    'jumlah_bda'   => $_jumlah_bda * 100,
                 ];
             }
 

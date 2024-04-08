@@ -1,7 +1,3 @@
-<p class="text-center">Alternatif</p>
-<x-TableAlternatifShowComponent />
-<hr class="dropdown-divider" />
-
 <p class="text-center">Normalisasi</p>
 <x-TableNormalisasiShowComponent />
 <hr class="dropdown-divider" />
