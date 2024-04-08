@@ -6,6 +6,7 @@ use App\Helpers\WeightedSumModel;
 use App\Models\{
     Alat,
     CalculatePriorityWeights,
+    Criteria,
     WsmNormalization,
     WsmPrepareNormalization,
     WsmResultNormalization,
@@ -117,17 +118,18 @@ class WsmRepository
     protected function wsm_normalization()
     {
         $status = false;
+        $criteria = Criteria::all();
         $equipments = WsmPrepareNormalization::all();
 
         /**
-         * utilisasi    =(MIN(normalisasi!$E$2:$E$41))/normalisasi!E2
-         * availability =(MIN(normalisasi!$F$2:$F$41))/normalisasi!F2
-         * reliability  =(MIN(normalisasi!$G$2:$G$41))/normalisasi!G2
-         * idle         =normalisasi!H2/(MAX(normalisasi!$H$2:$H$41))
-         * jam tersedia =(MIN(normalisasi!$I$2:$I$41))/normalisasi!I2
-         * jam operasi  =normalisasi!J2/(MAX(normalisasi!$J$2:$J$41))
-         * jam bda      =normalisasi!K2/(MAX(normalisasi!$K$2:$K$41))
-         * jumlah bda   =normalisasi!L2/(MAX(normalisasi!$L$2:$L$41))
+         * utilisasi    =(MIN(normalisasi!$E$2:$E$41))/normalisasi!E2      Utilisasi	 Cost
+         * availability =(MIN(normalisasi!$F$2:$F$41))/normalisasi!F2      Availability	 Cost
+         * reliability  =(MIN(normalisasi!$G$2:$G$41))/normalisasi!G2      Reliability	 Cost
+         * idle         =normalisasi!H2/(MAX(normalisasi!$H$2:$H$41))      Jam idle	     Benefit
+         * jam tersedia =(MIN(normalisasi!$I$2:$I$41))/normalisasi!I2      Jam tersedia	 Cost
+         * jam operasi  =normalisasi!J2/(MAX(normalisasi!$J$2:$J$41))      Jam operasi	 Benefit
+         * jam bda      =normalisasi!K2/(MAX(normalisasi!$K$2:$K$41))      Jumlah BDA	 Benefit
+         * jumlah bda   =normalisasi!L2/(MAX(normalisasi!$L$2:$L$41))      Jam BDA	     Benefit
          */
 
         $normalisasi_utilisasi    = [];
@@ -162,14 +164,14 @@ class WsmRepository
                 $_store[] = [
                     'kode'         => $equipment->kode,
                     'nama'         => $equipment->nama,
-                    'utilisasi'    => WeightedSumModel::min_devide_by_number($normalisasi_utilisasi, $equipment->utilisasi),
-                    'availability' => WeightedSumModel::min_devide_by_number($normalisasi_availability, $equipment->availability),
-                    'reliability'  => WeightedSumModel::min_devide_by_number($normalisasi_reliability, $equipment->reliability),
-                    'idle'         => WeightedSumModel::number_devide_max_of($equipment->idle, $normalisasi_idle),
-                    'jam_tersedia' => WeightedSumModel::min_devide_by_number($normalisasi_jam_tersedia, $equipment->jam_tersedia),
-                    'jam_operasi'  => WeightedSumModel::number_devide_max_of($equipment->jam_operasi, $normalisasi_jam_operasi),
-                    'jam_bda'      => WeightedSumModel::number_devide_max_of($equipment->jam_bda, $normalisasi_jam_bda),
-                    'jumlah_bda'   => WeightedSumModel::number_devide_max_of($equipment->jumlah_bda, $normalisasi_jumlah_bda),
+                    'utilisasi'    => $this->wsm_normalization_count($criteria, 'Utilisasi', $equipment->utilisasi, $normalisasi_utilisasi),
+                    'availability' => $this->wsm_normalization_count($criteria, 'Availability', $equipment->availability, $normalisasi_availability),
+                    'reliability'  => $this->wsm_normalization_count($criteria, 'Reliability', $equipment->reliability, $normalisasi_reliability),
+                    'idle'         => $this->wsm_normalization_count($criteria, 'Jam idle', $equipment->idle, $normalisasi_idle),
+                    'jam_tersedia' => $this->wsm_normalization_count($criteria, 'Jam tersedia', $equipment->jam_tersedia, $normalisasi_jam_tersedia),
+                    'jam_operasi'  => $this->wsm_normalization_count($criteria, 'Jam operasi', $equipment->jam_operasi, $normalisasi_jam_operasi),
+                    'jam_bda'      => $this->wsm_normalization_count($criteria, 'Jumlah BDA', $equipment->jam_bda, $normalisasi_jam_bda),
+                    'jumlah_bda'   => $this->wsm_normalization_count($criteria, 'Jam BDA', $equipment->jumlah_bda, $normalisasi_jumlah_bda),
                 ];
             }
 
@@ -285,5 +287,12 @@ class WsmRepository
         }
 
         return $status;
+    }
+
+    protected function wsm_normalization_count($criteria, $name, $number, $numbers)
+    {
+        return $criteria->firstWhere('name', $name)->jenis === 'Cost'
+            ? WeightedSumModel::min_devide_by_number($numbers, $number)
+            : WeightedSumModel::number_devide_max_of($number, $numbers);
     }
 }
