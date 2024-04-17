@@ -24,7 +24,7 @@ class CreateWsmResultNormalizationsTable extends Migration
             $table->decimal('jam_tersedia', 5, 2);
             $table->decimal('jam_operasi', 5, 2);
             $table->decimal('jam_bda', 5, 2);
-            $table->integer('jumlah_bda');
+            $table->decimal('jumlah_bda', 5, 2);
             $table->decimal('hasil', 5, 2);
             $table->integer('rangking')->nullable();
             $table->timestamps();

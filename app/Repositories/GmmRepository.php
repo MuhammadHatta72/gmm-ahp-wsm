@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class GmmRepository
 {
-    public static function Calculate()
+    public static function Calculate(): array
     {
         $bobot = Bobot::all()->groupBy('id_kriteria');
 

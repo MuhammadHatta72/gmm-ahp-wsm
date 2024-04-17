@@ -23,7 +23,6 @@
                 <td>{{ $anhipro->firstWhere('kriteria_id', $_criteria->id)?->hasil }}</td>
                 @endforeach
 
-                {{-- {{ dd($rowspan, count($criteria)) }} --}}
                 @if($rowspan >= count($criteria))
                 <td rowspan="{{ $rowspan }}">X</td>
                 @endif
