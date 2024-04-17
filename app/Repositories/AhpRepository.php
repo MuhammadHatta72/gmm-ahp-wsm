@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class AhpRepository
 {
-    public static function Calculate()
+    public static function Calculate(): array
     {
         $status = false;
         $message = 'Tidak dapat menghitung AHP saat ini. Silakan coba lagi nanti';

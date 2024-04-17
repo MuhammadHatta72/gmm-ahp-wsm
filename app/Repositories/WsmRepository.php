@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class WsmRepository
 {
-    public static function Calculate()
+    public static function Calculate(): array
     {
         $status = false;
         $message = 'Tidak dapat menghitung WSM saat ini. Silakan coba lagi nanti';
@@ -115,7 +115,7 @@ class WsmRepository
         return $status;
     }
 
-    protected function wsm_normalization()
+    protected function wsm_normalization(): bool
     {
         $status = false;
         $criteria = Criteria::all();
@@ -186,7 +186,7 @@ class WsmRepository
         return $status;
     }
 
-    protected function wsm_result_normalization()
+    protected function wsm_result_normalization(): bool
     {
         $status = false;
         $equipments = WsmNormalization::all();
@@ -282,14 +282,13 @@ class WsmRepository
 
             $status = true;
         } catch (\Throwable $th) {
-            dd($th);
             //throw $th;
         }
 
         return $status;
     }
 
-    protected function wsm_normalization_count($criteria, $name, $number, $numbers)
+    protected function wsm_normalization_count($criteria, $name, $number, $numbers): float
     {
         return $criteria->firstWhere('name', $name)->jenis === 'Cost'
             ? WeightedSumModel::min_devide_by_number($numbers, $number)

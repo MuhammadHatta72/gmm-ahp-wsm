@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class GeoMetricMean
 {
-    public static function count(array $numbers)
+    public static function count(array $numbers): float
     {
         $count = count($numbers);
         $product = array_product($numbers);

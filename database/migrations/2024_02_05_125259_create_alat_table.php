@@ -14,16 +14,16 @@ class CreateAlatTable extends Migration
     public function up()
     {
         Schema::create('alat', function (Blueprint $table) {
-            $table->string('kode', 20)->primary(); 
+            $table->string('kode', 20)->primary();
             $table->string('nama');
-            $table->decimal('utilisasi', 5, 2); 
+            $table->decimal('utilisasi', 5, 2);
             $table->decimal('availability', 5, 2);
             $table->decimal('reliability', 5, 2);
             $table->decimal('idle', 5, 2);
             $table->decimal('jam_tersedia', 5, 2);
             $table->decimal('jam_operasi', 5, 2);
             $table->decimal('jam_bda', 5, 2);
-            $table->integer('jumlah_bda'); 
+            $table->decimal('jumlah_bda', 5, 2);
             $table->timestamps();
         });
     }

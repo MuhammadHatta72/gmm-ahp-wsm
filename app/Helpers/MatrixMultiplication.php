@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class MatrixMultiplication
 {
-    public static function count(array $matrix1, array $matrix2)
+    public static function count(array $matrix1, array $matrix2): array
     {
         $result = array();
 

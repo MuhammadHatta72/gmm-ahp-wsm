@@ -24,7 +24,7 @@ class CreateWsmPrepareNormalizationsTable extends Migration
             $table->decimal('jam_tersedia', 10, 2);
             $table->decimal('jam_operasi', 10, 2);
             $table->decimal('jam_bda', 10, 2);
-            $table->integer('jumlah_bda');
+            $table->decimal('jumlah_bda', 5, 2);
             $table->timestamps();
         });
     }
