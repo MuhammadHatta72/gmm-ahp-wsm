@@ -4,31 +4,33 @@
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Hasil</h4>
+    <div class="d-flex justify-content-between">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Hasil</h4>
+        @if(request()->user()->role == 'admin')
+        <div class="d-flex flex-row-reverse">
+            <form action="{{ route('Hasil::export') }}" method="post">
+                @csrf
+                @method('POST')
+
+                <button class="btn btn-primary mb-3">Export</button>
+            </form>
+        </div>
+        @endif
+    </div>
 
     <x-SessionAlertComponent />
 
-    @if(request()->user()->role == 'admin')
-    <div class="d-flex flex-row-reverse">
-        <form action="{{ route('Hasil::export') }}" method="post">
-            @csrf
-            @method('POST')
-
-            <button class="btn btn-primary mb-3">Export</button>
-        </form>
-    </div>
-    @endif
 
     <div class="nav-align-top mb-4">
         <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-            <x-TabItemComponent title="GMM" key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}" />
-            <x-TabItemComponent title="AHP" key="ahp" active="{{ request()->get('name') == 'ahp' ? 'active' : '' }}" />
-            <x-TabItemComponent title="WSM" key="wsm" active="{{ request()->get('name') == 'wsm' ? 'active' : '' }}" />
+            <x-TabItemComponent title="Nilai Kriteria" key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}" />
+            <x-TabItemComponent title="Bobot Kriteria" key="ahp" active="{{ request()->get('name') == 'ahp' ? 'active' : '' }}" />
+            <x-TabItemComponent title="Rekomendasi" key="wsm" active="{{ request()->get('name') == 'wsm' ? 'active' : '' }}" />
         </ul>
         <div class="tab-content">
             <x-TabContentComponent key="gmm" active="{{ request()->get('name') == 'gmm' || request()->get('name') == ''  ? 'active' : '' }}">
                 @if(request()->user()->role == 'admin')
-                <button type="button" class="btn btn-primary mb-3" onclick="gmmCalcuate()">Hitung GMM</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="gmmCalcuate()">Hitung Nilai Kriteria</button>
                 @endif
                 <hr class="dropdown-divider" />
 
@@ -38,7 +40,7 @@
             </x-TabContentComponent>
             <x-TabContentComponent key="ahp" active="{{ request()->get('name') == 'ahp' ? 'active' : '' }}">
                 @if(request()->user()->role == 'admin')
-                <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung AHP</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="ahpCalcuate()">Hitung Bobot Kriteria</button>
                 @endif
                 <hr class="dropdown-divider" />
 
@@ -46,7 +48,7 @@
             </x-TabContentComponent>
             <x-TabContentComponent key="wsm" active="{{ request()->get('name') == 'wsm' ? 'active' : '' }}">
                 @if(request()->user()->role == 'admin')
-                <button type="button" class="btn btn-primary mb-3" onclick="wsmCalcuate()">Hitung WSM</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="wsmCalcuate()">Hitung Rekomendasi</button>
                 @endif
 
                 <x-TableWsmShowComponent />

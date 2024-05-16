@@ -3,10 +3,10 @@
         <thead>
             <tr>
                 <th>Kriteria</th>
-                @foreach($criteria_gb_name as $index => $criteria)
+                {{-- @foreach($criteria_gb_name as $index => $criteria)
                 <th>{{ $index }}</th>
-                @endforeach
-                <th>Jumlah</th>
+                @endforeach --}}
+                {{-- <th>Jumlah</th> --}}
                 <th>PW</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ $index }}</td>
 
-                @foreach($criteria as $_index => $_criteria)
+                {{-- @foreach($criteria as $_index => $_criteria)
 
                 @php
                 $hasil = number_format(
@@ -26,9 +26,9 @@
                 @endphp
 
                 <td>{{ $hasil }}</td>
-                @endforeach
+                @endforeach --}}
 
-                <td>{{ $calculatePriorityWeights->firstWhere('name', "{$index}-jumlah")?->hasil }}</td>
+                {{-- <td>{{ $calculatePriorityWeights->firstWhere('name', "{$index}-jumlah")?->hasil }}</td> --}}
                 <td>{{ number_format($calculatePriorityWeights->firstWhere('name', "{$index}-pw")?->hasil, 2) }}</td>
 
             </tr>

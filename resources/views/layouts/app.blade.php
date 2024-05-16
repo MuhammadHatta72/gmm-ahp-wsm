@@ -76,7 +76,7 @@
                     <li class="menu-item {{ Route::is('Bobot::*') ? 'active' : '' }}">
                         <a href="{{ route('Bobot::index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-layer"></i>
-                            <div data-i18n="Tables">Bobot</div>
+                            <div data-i18n="Tables">Nilai Kriteria</div>
                         </a>
                     </li>
                     @endif

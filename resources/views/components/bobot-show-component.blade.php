@@ -37,6 +37,7 @@
     @if($user_id == request()->user()->id)
     <hr class="dropdown-divider" />
     <div class="card-footer text-body-secondary">
+        <a href="{{ route('Bobot::edit', $token) }}" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="<span>Edit</span>"><i class="bx bx-edit-alt me-1"></i></a>
         <form action="{{ route('Bobot::destroy', $token) }}" method="post" class="d-inline" id="deleteForm{{ $token }}">
             @csrf
             @method('DELETE')

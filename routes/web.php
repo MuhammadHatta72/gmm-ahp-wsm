@@ -52,7 +52,7 @@ Route::name('Bobot::')->prefix('bobot')->group(function () {
     Route::get('/',  [BobotController::class, 'index'])->name('index');
     Route::get('/create', [BobotController::class, 'create'])->name('create');
     Route::resource('/', BobotController::class)
-        ->only('store', 'destroy')
+        ->only('store', 'destroy', 'edit')
         ->parameter('', 'bobot');
 });
 

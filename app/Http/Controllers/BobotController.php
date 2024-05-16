@@ -14,8 +14,9 @@ class BobotController extends Controller
     {
         $bobot = Bobot::with('Kriteria', 'user')->get()->groupBy(['user_id', 'rand_token']);
         $gmm_criteria = Kriteria::all()->groupBy('name');
+        $hasBobot = Bobot::query()->where('user_id', request()->user()->id)->get()->groupBy('user_id')->count();
 
-        return view('bobot.index', compact('bobot', 'gmm_criteria'));
+        return view('bobot.index', compact('bobot', 'gmm_criteria', 'hasBobot'));
     }
 
     public function create()
@@ -61,6 +62,17 @@ class BobotController extends Controller
         return $status
             ? redirect()->route('Bobot::index')->with('success', 'bobot berhasil dibuat!')
             : redirect()->route('Bobot::index')->with('failed', 'bobot gagal dibuat!');
+    }
+
+    public function edit($token)
+    {
+        dd(
+            $token,
+            Bobot::query()->where('rand_token', $token)->get()
+        );
+        $gmm_criteria = Kriteria::all()->groupBy('name');
+
+        return view('bobot.edit', compact('gmm_criteria'));
     }
 
     public function destroy($bobot)

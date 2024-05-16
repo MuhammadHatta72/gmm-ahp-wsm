@@ -27,7 +27,9 @@
                             <th>No</th>
                             <th>Nama Kriteria</th>
                             <th>Jenis Kriteria</th>
+                            @if(request()->user()->role == 'admin')
                             <th>Opsi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +38,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $k->name }}</td>
                             <td>{{ $k->jenis }}</td>
+                            @if(request()->user()->role == 'admin')
                             <td>
                                 <form action="{{ route('Kriteria::destroy', $k->id) }}" method="post" class="d-inline" id="deleteForm{{ $k->id }}">
                                     <a href="{{ route('Kriteria::edit', $k->id) }}" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="<span>Edit</span>"><i class="bx bx-edit-alt me-1"></i></a>
@@ -46,6 +49,7 @@
                                     </button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

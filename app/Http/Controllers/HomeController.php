@@ -32,6 +32,8 @@ class HomeController extends Controller
         $kriteria = Criteria::all();
         // $alat = Alat::all();
         $alatChart = $alatChart->build();
-        return view('home', compact('user', 'kriteria', 'alatChart'));
+        $alatData = json_decode($alatChart->dataset());
+
+        return view('home', compact('user', 'kriteria', 'alatChart', 'alatData'));
     }
 }

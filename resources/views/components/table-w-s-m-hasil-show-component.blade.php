@@ -14,7 +14,7 @@
                 <th>Jam BDA</th>
                 <th>Jumlah BDA</th>
                 <th>Hasil</th>
-                <th>Rangking</th>
+                {{-- <th>Rangking</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
                 <td>{{ $_wsm_result_normalisasi->jam_bda }}</td>
                 <td>{{ $_wsm_result_normalisasi->jumlah_bda }}</td>
                 <td>{{ $_wsm_result_normalisasi->hasil }}</td>
-                <td>{{ $_wsm_result_normalisasi->rangking }}</td>
+                {{-- <td>{{ $_wsm_result_normalisasi->rangking }}</td> --}}
             </tr>
             @endforeach
         </tbody>

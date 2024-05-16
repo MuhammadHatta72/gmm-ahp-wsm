@@ -1,8 +1,8 @@
 @if(!$readonly && !$disabled)
 
 <select class="form-select" aria-label="Default select example" name="{{ $name }}" {{ $readonly ? 'readonly' : '' }} {{ $disabled ? 'disabled' : '' }}>
-    <option selected value='0'>0</option>
-    <option {{ $dvalue ? 'selected' : '' }} value="1">1</option>
+    <option value='0'>0</option>
+    <option selected value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
     <option value="4">4</option>
