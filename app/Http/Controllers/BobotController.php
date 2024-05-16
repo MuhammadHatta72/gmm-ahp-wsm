@@ -66,10 +66,10 @@ class BobotController extends Controller
 
     public function edit($token)
     {
-        dd(
-            $token,
-            Bobot::query()->where('rand_token', $token)->get()
-        );
+        // dd(
+        //     $token,
+        //     Bobot::query()->where('rand_token', $token)->get()
+        // );
         $gmm_criteria = Kriteria::all()->groupBy('name');
 
         return view('bobot.edit', compact('gmm_criteria'));
