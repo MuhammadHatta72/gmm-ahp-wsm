@@ -14,7 +14,7 @@ class GmmRepository
         $bobot = Bobot::all()->groupBy('id_kriteria');
 
         $status = false;
-        $message = 'Tidak dapat menghitung GMM saat ini. Silakan coba lagi nanti';
+        $message = 'Tidak dapat menghitung Nilai Kriteria saat ini. Silakan coba lagi nanti';
 
         DB::beginTransaction();
 
@@ -39,7 +39,7 @@ class GmmRepository
             Geomean::insert($store);
 
             $status = true;
-            $message = 'Perhitungan GMM berhasil diselesaikan';
+            $message = 'Perhitungan Nilai Kriteria berhasil diselesaikan';
         } catch (\Throwable $th) {
             DB::rollBack();
         }

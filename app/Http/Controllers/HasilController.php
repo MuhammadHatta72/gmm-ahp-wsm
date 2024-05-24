@@ -11,9 +11,10 @@ use Illuminate\Http\Request;
 
 class HasilController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('hasil.index');
+        $filter = $request->get('filter', null);
+        return view('hasil.index', compact('filter'));
     }
 
     public function store(Request $request)

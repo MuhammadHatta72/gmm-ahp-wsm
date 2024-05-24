@@ -1,12 +1,12 @@
-<p class="text-center">Matriks Perbandingan Pasangan</p>
+{{-- <p class="text-center">Matriks Perbandingan Pasangan</p>
 <x-TablePairComparisonMatrixShowComponent />
-<hr class="dropdown-divider" />
+<hr class="dropdown-divider" /> --}}
 
 <p class="text-center">Menghitung Bobot Prioritas</p>
 <x-TableCalculatePriorityWeightsShowComponent />
 <hr class="dropdown-divider" />
 
-<p class="text-center">Mengalikan matriks dengan PW</p>
+{{-- <p class="text-center">Mengalikan matriks dengan PW</p>
 <x-TableCalculatingConsistencyRatioShowComponent />
 <hr class="dropdown-divider" />
 
@@ -24,4 +24,4 @@
 
 <p class="text-center">Menghitung Consistency Ratio(CR)</p>
 <x-TableMenghitungConsistencyRatioCRShowComponent />
-<hr class="dropdown-divider mb-3" />
+<hr class="dropdown-divider mb-3" /> --}}

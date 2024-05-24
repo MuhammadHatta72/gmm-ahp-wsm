@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Alat;
 use App\Charts\AlatChart;
+use App\Charts\AverageAlat;
 use App\Models\Criteria;
 
 class HomeController extends Controller
@@ -26,12 +27,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(AlatChart $alatChart)
+    public function index(AlatChart $alatChart, AverageAlat $chart)
     {
         $user = Auth::user();
         $kriteria = Criteria::all();
-        // $alat = Alat::all();
         $alatChart = $alatChart->build();
-        return view('home', compact('user', 'kriteria', 'alatChart'));
+
+        $utilisasiChart = $chart->buildUtilisasi();
+        $availabilityChart = $chart->buildAvailability();
+        $reliabilityChart = $chart->buildReliability();
+        $idleChart = $chart->buildIdle();
+
+        return view('home', compact('user', 'kriteria', 'alatChart', 'utilisasiChart', 'availabilityChart', 'reliabilityChart', 'idleChart'));
     }
 }

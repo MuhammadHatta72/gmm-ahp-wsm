@@ -9,10 +9,19 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AlatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $alat = Alat::all();
-        return view('alat.index', compact('alat'));
+        $query = Alat::query();
+
+        $month = $request->get('month');
+        if ($month) {
+            $query->whereMonth('updated_at', '=', \Carbon\Carbon::parse($month)->month)
+                ->whereYear('updated_at', '=', \Carbon\Carbon::parse($month)->year);
+        }
+
+        $alat = $query->get();
+
+        return view('alat.index', compact('alat', 'month'));
     }
 
     public function import(Request $request)

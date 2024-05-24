@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Nilai')
+@section('title', 'Edit Nilai')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bobot / </span>Tambah Nilai</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Bobot / </span>Edit Nilai</h4>
         <div class="col-xl-12">
             <div class="card mb-4">
-                <h5 class="card-header">Masukkan Nilai Perbandingan Berpasangan</h5>
+                <h5 class="card-header">Edit Nilai Perbandingan Berpasangan</h5>
                 <table class="table">
                     <thead>
                         <tr>
@@ -72,10 +72,10 @@
                     </tbody>
                 </table>
             </div>
-
             <!-- Striped Rows -->
-            <form action="{{ route('Bobot::store') }}" method="post">
+            <form action="{{ route('Bobot::update', $bobots->first()->rand_token) }}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="card">
                     <div class="table-responsive text-nowrap">
                         <table class="table table-striped">
@@ -88,27 +88,53 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                <!-- idnex sould be [$index, $_index] -->
                                 @php
                                     $indexing = 0;
                                 @endphp
 
-                                @foreach ($gmm_criteria as $index => $criteria)
+                                {{-- @foreach ($gmm_criteria as $index => $criteria)
                                     <tr>
                                         <td>{{ $index }}</td>
 
                                         @foreach ($criteria as $_index => $_criteria)
+                                            @php
+                                                $bobot_nilai = $bobots->firstWhere('id_kriteria', $_criteria->id);
+                                            @endphp
                                             <td>
                                                 <x-SelectInputBobot id="{{ $_criteria->id }}"
                                                     name="{{ strtolower($index) }}[{{ $_criteria->id }}]"
-                                                    dvalue="{{ $indexing == $_index }}"
+                                                    dvalue="{{ $bobot_nilai ? $bobot_nilai->bobot : 0 }}"
                                                     readonly="{{ $indexing == $_index }}"
                                                     disabled="{{ $indexing > $_index }}" />
                                             </td>
                                         @endforeach
 
                                         @php
-                                            $indexing = $indexing + 1;
+                                            $indexing++;
+                                        @endphp
+
+                                    </tr>
+                                @endforeach --}}
+
+                                @foreach ($gmm_criteria as $index => $criteria)
+                                    <tr>
+                                        <td>{{ $index }}</td>
+
+                                        @foreach ($criteria as $_index => $_criteria)
+                                            @php
+                                                $bobot_nilai = $bobots->firstWhere('id_kriteria', $_criteria->id);
+                                            @endphp
+                                            <td>
+                                                <x-SelectInputBobot id="{{ $_criteria->id }}"
+                                                    name="{{ strtolower($index) }}[{{ $_criteria->id }}]"
+                                                    dvalue="{{ $bobot_nilai ? $bobot_nilai->bobot : 0 }}"
+                                                    readonly="{{ $indexing == $_index }}"
+                                                    disabled="{{ $indexing > $_index }}" />
+                                            </td>
+                                        @endforeach
+
+                                        @php
+                                            $indexing++;
                                         @endphp
 
                                     </tr>

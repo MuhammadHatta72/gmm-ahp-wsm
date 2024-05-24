@@ -3,25 +3,27 @@
 @section('title', 'Bobot')
 
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Bobot</h4>
-    <div class="card">
-        <div class="card-header">
-            <h4>Perbandingan Berpasangan</h4>
-            <a href="{{ route('Bobot::create') }}" class="btn btn-primary">+ Tambah Nilai</a>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Nilai Kriteria</h4>
+        <div class="card">
+            <div class="card-header">
+                <h4>Perbandingan Berpasangan</h4>
+                @if (count($cekUser) < 1)
+                    <a href="{{ route('Bobot::create') }}" class="btn btn-primary">+ Tambah Nilai</a>
+                @endif
+            </div>
+            <div class="card-body">
+                <x-SessionAlertComponent />
+            </div>
         </div>
-        <div class="card-body">
-            <x-SessionAlertComponent />
-        </div>
-    </div>
 
-    @foreach($bobot as $user_id => $grouped)
-    @foreach($grouped as $token => $_bobot)
-    <x-BobotShowComponent :userId="$user_id" :token="$token" :bobot="$_bobot" :gmmCriteria="$gmm_criteria" />
-    @endforeach
-    @endforeach
-</div>
-@include('layouts.delete-confirm')
+        @foreach ($bobot as $user_id => $grouped)
+            @foreach ($grouped as $token => $_bobot)
+                <x-BobotShowComponent :userId="$user_id" :token="$token" :bobot="$_bobot" :gmmCriteria="$gmm_criteria" />
+            @endforeach
+        @endforeach
+    </div>
+    @include('layouts.delete-confirm')
 @endsection
 
 
@@ -32,7 +34,6 @@
         justify-content: space-between;
         align-items: center;
     }
-
 </style>
 
 <script>
@@ -52,5 +53,4 @@
             deleteForm.submit();
         }
     }
-
 </script>

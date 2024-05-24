@@ -37,7 +37,6 @@ class AlatChart
             ->setWidth(500)
             ->setHeight(500)
             ->addData($data)
-            ->setLabels($label)
-        ;
+            ->setLabels($label);
     }
 }

@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CriteriaSeeder::class);
 
         // reverse seed
-        $this->call(AlatTableSeeder::class);
+        $this->call(AlatMasterSeeder::class);
+        // $this->call(AlatTableSeeder::class);
         $this->call(KriteriaTableSeeder::class);
         $this->call(BobotTableSeeder::class);
         $this->call(GeomeansTableSeeder::class);

@@ -14,14 +14,13 @@ class BobotController extends Controller
     {
         $bobot = Bobot::with('Kriteria', 'user')->get()->groupBy(['user_id', 'rand_token']);
         $gmm_criteria = Kriteria::all()->groupBy('name');
-
-        return view('bobot.index', compact('bobot', 'gmm_criteria'));
+        $cekUser = Bobot::where('user_id', auth()->user()->id)->get()->groupBy('rand_token');
+        return view('bobot.index', compact('bobot', 'gmm_criteria', 'cekUser'));
     }
 
     public function create()
     {
         $gmm_criteria = Kriteria::all()->groupBy('name');
-
         return view('bobot.create', compact('gmm_criteria'));
     }
 
@@ -61,6 +60,46 @@ class BobotController extends Controller
         return $status
             ? redirect()->route('Bobot::index')->with('success', 'bobot berhasil dibuat!')
             : redirect()->route('Bobot::index')->with('failed', 'bobot gagal dibuat!');
+    }
+
+    public function edit($bobot)
+    {
+        $bobots = Bobot::where('rand_token', $bobot)->get();
+        $gmm_criteria = Kriteria::all()->groupBy('name');
+        return view('bobot.edit', compact('bobots', 'gmm_criteria'));
+    }
+
+    public function update(Request $request, $token_rand)
+    {
+        $_req = $request->only('utilisasi', 'availability', 'reliability', 'jam_idle', 'jam_tersedia', 'jam_operasi', 'jumlah_bda', 'jam_bda');
+        $data = array_values($_req);
+
+        $status = false;
+
+        DB::beginTransaction();
+
+        try {
+            $update = [];
+            foreach ($data as $bobot) {
+                foreach ($bobot as $index => $_bobot) {
+                    //ambil id masing masing
+                    $dt_bobot = Bobot::where('rand_token', $token_rand)->where('id_kriteria', $index)->first();
+                    $dt_bobot->bobot = $_bobot;
+                    $dt_bobot->save();
+                }
+            }
+
+            $status = true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+        }
+
+        DB::commit();
+
+        return $status
+            ? redirect()->route('Bobot::index')->with('success', 'bobot berhasil diupdate!')
+            : redirect()->route('Bobot::index')->with('failed', 'bobot gagal diupdate!');
     }
 
     public function destroy($bobot)

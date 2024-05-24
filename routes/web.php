@@ -3,6 +3,7 @@
 use App\Models\Kriteria;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlatController;
+use App\Http\Controllers\AlatMasterController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\BobotController;
 use App\Http\Controllers\HasilController;
@@ -34,6 +35,12 @@ Route::middleware(['auth'])->prefix('setting')->group(function () {
     Route::post('/save-password', [SettingController::class, 'savePassword'])->name('savePassword');
 });
 
+Route::name('Alat-Master::')->prefix('alat-master')->group(function () {
+    Route::resource('/', AlatMasterController::class)
+        ->only('index', 'create', 'store', 'edit', 'update', 'destroy')
+        ->parameter('', 'alat');
+});
+
 Route::name('Alat::')->prefix('alat')->group(function () {
     Route::get('/',  [AlatController::class, 'index'])->name('index');
     Route::post('/import',  [AlatController::class, 'import'])->name('import');
@@ -51,6 +58,8 @@ Route::name('Kriteria::')->prefix('kriteria')->group(function () {
 Route::name('Bobot::')->prefix('bobot')->group(function () {
     Route::get('/',  [BobotController::class, 'index'])->name('index');
     Route::get('/create', [BobotController::class, 'create'])->name('create');
+    Route::get('/edit/{id}', [BobotController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [BobotController::class, 'update'])->name('update');
     Route::resource('/', BobotController::class)
         ->only('store', 'destroy')
         ->parameter('', 'bobot');

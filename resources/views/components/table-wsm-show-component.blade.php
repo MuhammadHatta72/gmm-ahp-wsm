@@ -1,11 +1,11 @@
-<p class="text-center">Normalisasi</p>
+{{-- <p class="text-center">Normalisasi</p>
 <x-TableNormalisasiShowComponent />
 <hr class="dropdown-divider" />
 
 <p class="text-center">WSM Normalisasi</p>
 <x-TableWSMNormalisasiShowComponent />
-<hr class="dropdown-divider" />
+<hr class="dropdown-divider" /> --}}
 
 <p class="text-center">WSM Hasil</p>
-<x-TableWSMHasilShowComponent />
+<x-TableWSMHasilShowComponent filter="{{ request()->get('filter') }}" />
 <hr class="dropdown-divider" />

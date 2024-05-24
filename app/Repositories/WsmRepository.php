@@ -19,7 +19,7 @@ class WsmRepository
     public static function Calculate(): array
     {
         $status = false;
-        $message = 'Tidak dapat menghitung WSM saat ini. Silakan coba lagi nanti';
+        $message = 'Tidak dapat menghitung Rekomendasi saat ini. Silakan coba lagi nanti';
 
         DB::beginTransaction();
 
@@ -32,15 +32,15 @@ class WsmRepository
             }
 
             if (!$_this->wsm_normalization()) {
-                return throw new Error('WSM Normalisasi Gagal!');
+                return throw new Error('Rekomendasi Normalisasi Gagal!');
             }
 
             if (!$_this->wsm_result_normalization()) {
-                return throw new Error('WSM Hasil Normalisasi Gagal!');
+                return throw new Error('Rekomendasi Hasil Normalisasi Gagal!');
             }
 
             $status = true;
-            $message = 'Perhitungan WSM berhasil diselesaikan';
+            $message = 'Perhitungan Rekomendasi berhasil diselesaikan';
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -210,7 +210,7 @@ class WsmRepository
          * jam operasi  ='WSM(normalisasi)'!J2*'WSM(normalisasi)'!$O$7
          * jam bda      ='WSM(normalisasi)'!K2*'WSM(normalisasi)'!$O$8
          * jumlah bda   ='WSM(normalisasi)'!L2*'WSM(normalisasi)'!$O$9
-         * 
+         *
          * hasil        =SUM(F2;H2;I2;K2;L2)
          * rangking     =RANK.EQ(N2;$N$2:$N$41;0)
          */

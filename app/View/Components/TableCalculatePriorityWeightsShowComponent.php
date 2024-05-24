@@ -29,10 +29,20 @@ class TableCalculatePriorityWeightsShowComponent extends Component
     {
         $anhipro = Anhipro::with('kriteria')->get();
         $pairComparisonMatrix = PairComparisonMatrix::all();
-        $calculatePriorityWeights = CalculatePriorityWeights::all();
+        // $calculatePriorityWeights = CalculatePriorityWeights::all()->sortByDesc('hasil');
+        // Mengambil dan mengurutkan data sesuai kriteria
+        $calculatePriorityWeights = CalculatePriorityWeights::where('name', 'like', '%-pw')
+            ->orderBy('hasil', 'desc')
+            ->get();
         $criteria = Kriteria::all();
         $criteria_gb_name = $criteria->groupBy('name');
         $criteria_gb_jenis = $criteria->groupBy('jenis');
+
+        $dataCalculatePriorityWeights = [];
+        foreach ($criteria_gb_name as $index => $criteria) {
+            $dataCalculatePriorityWeights[$index] = number_format($calculatePriorityWeights->firstWhere('name', "{$index}-pw")?->hasil, 2);
+        }
+        arsort($dataCalculatePriorityWeights);
 
         return view('components.table-calculate-priority-weights-show-component', [
             'anhipro' => $anhipro,
@@ -40,6 +50,7 @@ class TableCalculatePriorityWeightsShowComponent extends Component
             'calculatePriorityWeights' => $calculatePriorityWeights,
             'criteria_gb_name' => $criteria_gb_name,
             'criteria_gb_jenis' => $criteria_gb_jenis,
+            'dataCalculatePriorityWeights' => $dataCalculatePriorityWeights
         ]);
     }
 }
