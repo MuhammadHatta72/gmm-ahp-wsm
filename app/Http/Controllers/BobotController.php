@@ -66,13 +66,47 @@ class BobotController extends Controller
 
     public function edit($token)
     {
-        // dd(
-        //     $token,
-        //     Bobot::query()->where('rand_token', $token)->get()
-        // );
         $gmm_criteria = Kriteria::all()->groupBy('name');
 
-        return view('bobot.edit', compact('gmm_criteria'));
+        return view('bobot.edit', compact('gmm_criteria', 'token'));
+    }
+
+    public function update(Request $request, $token)
+    {
+        $_req = $request->only('utilisasi', 'availability', 'reliability', 'jam_idle', 'jam_tersedia', 'jam_operasi', 'jumlah_bda', 'jam_bda');
+        $data = array_values($_req);
+        $status = false;
+
+        DB::beginTransaction();
+
+        try {
+            $store = [];
+
+            Bobot::query()->where('rand_token', $token)->delete();
+
+            foreach ($data as $bobot) {
+                foreach ($bobot as $index => $_bobot) {
+                    $store[] = [
+                        'id_kriteria' => $index,
+                        'bobot' => $_bobot,
+                        'user_id' => $request->user()->id,
+                        'rand_token' => $token,
+                    ];
+                }
+            }
+
+            Bobot::insert($store);
+
+            $status = true;
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
+        return $status
+            ? redirect()->route('Bobot::index')->with('success', 'bobot berhasil diperbarui!')
+            : redirect()->route('Bobot::index')->with('failed', 'bobot gagal diperbarui!');
     }
 
     public function destroy($bobot)

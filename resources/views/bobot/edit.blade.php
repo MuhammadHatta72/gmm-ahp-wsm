@@ -13,8 +13,10 @@
         <x-TableScaleValue />
 
         <!-- Striped Rows -->
-        <form action="{{ route('Bobot::store') }}" method="post">
+        <form action="{{ route('Bobot::update', $token) }}" method="post">
             @csrf
+            @method('put')
+
             <div class="card">
                 <div class="table-responsive text-nowrap">
                     <table class="table table-striped">
