@@ -19,7 +19,7 @@ class WsmRepository
     public static function Calculate(): array
     {
         $status = false;
-        $message = 'Tidak dapat menghitung WSM saat ini. Silakan coba lagi nanti';
+        $message = 'Tidak dapat menghitung Rekomendasi saat ini. Silakan coba lagi nanti';
 
         DB::beginTransaction();
 
@@ -32,15 +32,15 @@ class WsmRepository
             }
 
             if (!$_this->wsm_normalization()) {
-                return throw new Error('WSM Normalisasi Gagal!');
+                return throw new Error('Rekomendasi Normalisasi Gagal!');
             }
 
             if (!$_this->wsm_result_normalization()) {
-                return throw new Error('WSM Hasil Normalisasi Gagal!');
+                return throw new Error('Rekomendasi Hasil Normalisasi Gagal!');
             }
 
             $status = true;
-            $message = 'Perhitungan WSM berhasil diselesaikan';
+            $message = 'Perhitungan Rekomendasi berhasil diselesaikan';
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -77,18 +77,18 @@ class WsmRepository
 
             /** data store for each variable */
             foreach ($equipments as $equipment) {
-                $alternatif_jam_tersedia[] = $equipment->jam_tersedia;
-                $alternatif_jam_operasi[]  = $equipment->jam_operasi;
-                $alternatif_jam_bda[]      = $equipment->jam_bda;
-                $alternatif_jumlah_bda[]   = $equipment->jumlah_bda;
+                $alternatif_jam_tersedia[] = $equipment->jam_tersedia == 0 ? 1 : $equipment->jam_tersedia;
+                $alternatif_jam_operasi[]  = $equipment->jam_operasi == 0 ? 1 : $equipment->jam_operasi;
+                $alternatif_jam_bda[]      = $equipment->jam_bda == 0 ? 1 : $equipment->jam_bda;
+                $alternatif_jumlah_bda[]   = $equipment->jumlah_bda == 0 ? 1 : $equipment->jumlah_bda;
             }
 
             /** calculate the number */
             foreach ($equipments as $index => $equipment) {
-                $_jam_tersedia = WeightedSumModel::number_devide_max_of($equipment->jam_tersedia, $alternatif_jam_tersedia);
-                $_jam_operasi  = WeightedSumModel::number_devide_max_of($equipment->jam_operasi, $alternatif_jam_operasi);
-                $_jam_bda      = WeightedSumModel::number_devide_max_of($equipment->jam_bda, $alternatif_jam_bda);
-                $_jumlah_bda   = WeightedSumModel::number_devide_max_of($equipment->jumlah_bda, $alternatif_jumlah_bda);
+                $_jam_tersedia = WeightedSumModel::number_devide_max_of($equipment->jam_tersedia == 0 ? 1 : $equipment->jam_tersedia, $alternatif_jam_tersedia);
+                $_jam_operasi  = WeightedSumModel::number_devide_max_of($equipment->jam_operasi == 0 ? 1 : $equipment->jam_operasi, $alternatif_jam_operasi);
+                $_jam_bda      = WeightedSumModel::number_devide_max_of($equipment->jam_bda == 0 ? 1 : $equipment->jam_bda, $alternatif_jam_bda);
+                $_jumlah_bda   = WeightedSumModel::number_devide_max_of($equipment->jumlah_bda == 0 ? 1 : $equipment->jumlah_bda, $alternatif_jumlah_bda);
 
                 $_store[] = [
                     'kode'         => $equipment->kode,
@@ -210,7 +210,7 @@ class WsmRepository
          * jam operasi  ='WSM(normalisasi)'!J2*'WSM(normalisasi)'!$O$7
          * jam bda      ='WSM(normalisasi)'!K2*'WSM(normalisasi)'!$O$8
          * jumlah bda   ='WSM(normalisasi)'!L2*'WSM(normalisasi)'!$O$9
-         * 
+         *
          * hasil        =SUM(F2;H2;I2;K2;L2)
          * rangking     =RANK.EQ(N2;$N$2:$N$41;0)
          */
