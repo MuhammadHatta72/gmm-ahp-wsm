@@ -10,14 +10,14 @@
         <option {{ $dvalue == '7.00' ? 'selected' : '' }} value="7">7</option>
         <option {{ $dvalue == '8.00' ? 'selected' : '' }} value="8">8</option>
         <option {{ $dvalue == '9.00' ? 'selected' : '' }} value="9">9</option>
-        <option value="0.50">0.50</option>
-        <option value="0.33">0.33 </option>
-        <option value="0.25">0.25</option>
-        <option value="0.20">0.20</option>
-        <option value="0.17">0.17</option>
-        <option value="0.14">0.14</option>
-        <option value="0.13">0.13</option>
-        <option value="0.11">0.11</option>
+        <option {{ $dvalue == '0.50' ? 'selected' : '' }} value="0.50">0.50</option>
+        <option {{ $dvalue == '0.33' ? 'selected' : '' }} value="0.33">0.33 </option>
+        <option {{ $dvalue == '0.25' ? 'selected' : '' }} value="0.25">0.25</option>
+        <option {{ $dvalue == '0.20' ? 'selected' : '' }} value="0.20">0.20</option>
+        <option {{ $dvalue == '0.17' ? 'selected' : '' }} value="0.17">0.17</option>
+        <option {{ $dvalue == '0.14' ? 'selected' : '' }} value="0.14">0.14</option>
+        <option {{ $dvalue == '0.13' ? 'selected' : '' }} value="0.13">0.13</option>
+        <option {{ $dvalue == '0.11' ? 'selected' : '' }} value="0.11">0.11</option>
     </select>
 @else
     @if (!$disabled)

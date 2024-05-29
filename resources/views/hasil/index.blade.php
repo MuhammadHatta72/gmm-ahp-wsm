@@ -54,16 +54,22 @@
                         @endif
 
                         <form action="" method="get">
-                            <div class="input-group">
-                                <select name="filter" class="form-select">
-                                    <option value="">Filter Alat</option>
-                                    <option value="FL">FL</option>
-                                    <option value="QCC">QCC</option>
-                                    <option value="RST">RST</option>
-                                    <option value="RTC">RTC</option>
-                                    <option value="TTR">TTR</option>
-                                </select>
-                                <button class="btn btn-outline-primary" type="submit">Filter</button>
+                            <div class="d-flex gap-3">
+                                <div class="input-group">
+                                    <input type="number" name="count" class="form-control" placeholder="Masukkan Jumlah">
+                                    <button class="btn btn-outline-primary" type="submit">Jumlah</button>
+                                </div>
+                                <div class="input-group">
+                                    <select name="filter" class="form-select">
+                                        <option value="">Filter Alat</option>
+                                        <option value="FL">FL</option>
+                                        <option value="QCC">QCC</option>
+                                        <option value="RST">RST</option>
+                                        <option value="RTC">RTC</option>
+                                        <option value="TTR">TTR</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="submit">Filter</button>
+                                </div>
                             </div>
                         </form>
                     </div>

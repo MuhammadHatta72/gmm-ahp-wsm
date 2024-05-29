@@ -7,5 +7,5 @@
 <hr class="dropdown-divider" /> --}}
 
 <p class="text-center">WSM Hasil</p>
-<x-TableWSMHasilShowComponent filter="{{ request()->get('filter') }}" />
+<x-TableWSMHasilShowComponent filter="{{ request()->get('filter') }}" count="{{ request()->get('count') }}" />
 <hr class="dropdown-divider" />

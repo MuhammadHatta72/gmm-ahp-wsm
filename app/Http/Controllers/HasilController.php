@@ -14,7 +14,8 @@ class HasilController extends Controller
     public function index(Request $request)
     {
         $filter = $request->get('filter', null);
-        return view('hasil.index', compact('filter'));
+        $count = $request->get('count', null);
+        return view('hasil.index', compact('filter', 'count'));
     }
 
     public function store(Request $request)

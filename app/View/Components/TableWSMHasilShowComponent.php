@@ -8,14 +8,16 @@ use Illuminate\View\Component;
 class TableWSMHasilShowComponent extends Component
 {
     public $filter;
+    public $count;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($filter = null)
+    public function __construct($filter = null, $count = null)
     {
         $this->filter = $filter;
+        $this->count = $count;
     }
 
     /**
@@ -40,6 +42,10 @@ class TableWSMHasilShowComponent extends Component
 
         if ($this->filter) {
             $query->where('nama', 'like', "{$this->filter}%");
+        }
+
+        if ($this->count) {
+            $query->limit($this->count);
         }
 
         $wsm_result_normalisasi = $query->get();

@@ -92,6 +92,14 @@
                             </a>
                         </li>
                     @endif
+                    @if (in_array(request()->user()->role, ['vendor']))
+                        <li class="menu-item {{ Route::is('Alat-Master::*') ? 'active' : '' }}">
+                            <a href="{{ route('Alat-Master::index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-arch"></i>
+                                <div data-i18n="Tables">Alat Master</div>
+                            </a>
+                        </li>
+                    @endif
                     <li class="menu-item">
                         <a href="{{ route('Hasil::index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
