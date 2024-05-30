@@ -93,10 +93,10 @@
                         </li>
                     @endif
                     @if (in_array(request()->user()->role, ['vendor']))
-                        <li class="menu-item {{ Route::is('Alat-Master::*') ? 'active' : '' }}">
-                            <a href="{{ route('Alat-Master::index') }}" class="menu-link">
+                        <li class="menu-item {{ Route::is('Alat::*') ? 'active' : '' }}">
+                            <a href="{{ route('Alat::index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-arch"></i>
-                                <div data-i18n="Tables">Alat Master</div>
+                                <div data-i18n="Tables">Alat Berat</div>
                             </a>
                         </li>
                     @endif

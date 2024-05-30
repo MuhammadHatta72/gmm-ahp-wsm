@@ -5,22 +5,24 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Alat Berat</h4>
-        <div class="card">
-            <div class="card-header">
-                <h4>Form Import Data</h4>
-                @if (request()->user()->role == 'admin')
-                    <form action="{{ route('Alat::import') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="input-group">
-                            <input type="file" name="file" class="form-control" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
-                            <button class="btn btn-outline-primary" type="submit"
-                                id="inputGroupFileAddon04">Import</button>
-                        </div>
-                    </form>
-                @endif
+        @if (in_array(request()->user()->role, ['admin', 'teknik']))
+            <div class="card">
+                <div class="card-header">
+                    <h4>Form Import Data</h4>
+                    @if (request()->user()->role == 'admin')
+                        <form action="{{ route('Alat::import') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group">
+                                <input type="file" name="file" class="form-control" id="inputGroupFile04"
+                                    aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+                                <button class="btn btn-outline-primary" type="submit"
+                                    id="inputGroupFileAddon04">Import</button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="card mt-3">
             <div class="card-header">
