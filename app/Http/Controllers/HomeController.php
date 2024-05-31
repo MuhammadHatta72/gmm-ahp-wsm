@@ -38,6 +38,11 @@ class HomeController extends Controller
         $reliabilityChart = $chart->buildReliability();
         $idleChart = $chart->buildIdle();
 
-        return view('home', compact('user', 'kriteria', 'alatChart', 'utilisasiChart', 'availabilityChart', 'reliabilityChart', 'idleChart'));
+        $averageUtilisasi = Alat::avg('utilisasi');
+        $averageAvailability = Alat::avg('availability');
+        $averageReliability = Alat::avg('reliability');
+        $averageIdle = Alat::avg('idle');
+
+        return view('home', compact('user', 'kriteria', 'alatChart', 'utilisasiChart', 'availabilityChart', 'reliabilityChart', 'idleChart', 'averageUtilisasi', 'averageAvailability', 'averageReliability', 'averageIdle'));
     }
 }
