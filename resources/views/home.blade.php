@@ -108,6 +108,9 @@
                             <div style="width: 200px; height: 200px;">
                                 <canvas id="utilisasiChart"
                                     style="display: block; box-sizing: border-box; height: 200px; width: 200px; position: relative; left: 20%;"></canvas>
+                                <h3 id="value-utilisasi"
+                                    style="position: relative; left: 20%; top: -35%; text-align: center"></h3>
+                                <p style="position: relative; left: 20%; top: -45%; text-align: center">Nilai Utilisasi</p>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -116,6 +119,10 @@
                             <div style="width: 200px; height: 200px;">
                                 <canvas id="availabilityChart"
                                     style="display: block; box-sizing: border-box; height: 200px; width: 200px; position: relative; left: 20%;"></canvas>
+                                <h3 id="value-availability"
+                                    style="position: relative; left: 20%; top: -35%; text-align: center"></h3>
+                                <p style="position: relative; left: 20%; top: -45%; text-align: center">Nilai Availability
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -124,6 +131,10 @@
                             <div style="width: 200px; height: 200px;">
                                 <canvas id="reliabilityChart"
                                     style="display: block; box-sizing: border-box; height: 200px; width: 200px; position: relative; left: 20%;"></canvas>
+                                <h3 id="value-reliability"
+                                    style="position: relative; left: 20%; top: -35%; text-align: center"></h3>
+                                <p style="position: relative; left: 20%; top: -45%; text-align: center">Nilai Reliability
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -132,6 +143,9 @@
                             <div style="width: 200px; height: 200px;">
                                 <canvas id="idleChart"
                                     style="display: block; box-sizing: border-box; height: 200px; width: 200px; position: relative; left: 20%;"></canvas>
+                                <h3 id="value-idle" style="position: relative; left: 20%; top: -35%; text-align: center">
+                                </h3>
+                                <p style="position: relative; left: 20%; top: -45%; text-align: center">Nilai Idle</p>
                             </div>
                         </div>
                     </div>
@@ -150,17 +164,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         // Ambil nilai rata-rata utilisasi dari controller
-        let averageUtilisasi = @json($averageUtilisasi);
+        let averageUtilisasi = parseFloat(@json($averageUtilisasi)).toFixed(0);
+        // let resultUtilisasi = parseFloat((100 - averageUtilisasi)).toFixed(0);
+        $('#value-utilisasi').text(averageUtilisasi + '%');
         let ctxUtilisasi = document.getElementById('utilisasiChart').getContext('2d');
         let UtilisasiChart = new Chart(ctxUtilisasi, {
             type: 'doughnut',
             data: {
                 datasets: [{
-                    data: [averageUtilisasi, 100 - averageUtilisasi],
-                    backgroundColor: ['#FF6384', '#36A2EB'], // Warna pertama dan kedua
+                    data: [parseFloat(averageUtilisasi), 100 - parseFloat(
+                        averageUtilisasi)], // Ensure data is parsed as float
+                    backgroundColor: ['#b91d47', '#00aba9'], // Warna pertama dan kedua
                     borderWidth: 0
-                }]
+                }],
             },
             options: {
                 responsive: true,
@@ -173,20 +191,36 @@
                     },
                     tooltip: {
                         enabled: false
-                    }
+                    },
+                    datalabels: {
+                        color: '#000', // Color of the labels
+                        formatter: (value, context) => {
+                            // Only display the label for 'Utilisasi'
+                            return context.dataIndex === 1 ? context.chart.data.labels[context
+                                .dataIndex] : '';
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        align: 'right'
+                    },
+                    labelBelow: {} // Enable custom plugin
                 }
             }
         });
 
 
-        let averageAvailability = @json($averageAvailability);
+        let averageAvailability = parseFloat(@json($averageAvailability)).toFixed(0);
+        // let resultAvailability = parseFloat((100 - averageAvailability)).toFixed(0);
+        $('#value-availability').text(averageAvailability + '%');
         let ctxAvailability = document.getElementById('availabilityChart').getContext('2d');
         let availabilityChart = new Chart(ctxAvailability, {
             type: 'doughnut',
             data: {
                 datasets: [{
                     data: [averageAvailability, 100 - averageAvailability],
-                    backgroundColor: ['#FF6384', '#36A2EB'], // Warna pertama dan kedua
+                    backgroundColor: ['#6FDCE3', '#7E8EF1'], // Warna pertama dan kedua
                     borderWidth: 0
                 }]
             },
@@ -201,19 +235,34 @@
                     },
                     tooltip: {
                         enabled: false
+                    },
+                    datalabels: {
+                        color: '#000', // Color of the labels
+                        formatter: (value, context) => {
+                            // Only display the label for 'Utilisasi'
+                            return context.dataIndex === 1 ? context.chart.data.labels[context
+                                .dataIndex] : '';
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        align: 'right'
                     }
                 }
             }
         });
 
-        let averageReliability = @json($averageReliability);
+        let averageReliability = parseFloat(@json($averageReliability)).toFixed(0);
+        // let resultReliability = parseFloat((100 - averageReliability)).toFixed(0);
+        $('#value-reliability').text(averageReliability + '%');
         let ctxReliability = document.getElementById('reliabilityChart').getContext('2d');
         let reliabilityChart = new Chart(ctxReliability, {
             type: 'doughnut',
             data: {
                 datasets: [{
                     data: [averageReliability, 100 - averageReliability],
-                    backgroundColor: ['#FF6384', '#36A2EB'], // Warna pertama dan kedua
+                    backgroundColor: ['#F6DCAC', '#FEAE6F'], // Warna pertama dan kedua
                     borderWidth: 0
                 }]
             },
@@ -228,19 +277,34 @@
                     },
                     tooltip: {
                         enabled: false
+                    },
+                    datalabels: {
+                        color: '#000', // Color of the labels
+                        formatter: (value, context) => {
+                            // Only display the label for 'Utilisasi'
+                            return context.dataIndex === 0 ? context.chart.data.labels[context
+                                .dataIndex] : '';
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        align: 'right'
                     }
                 }
             }
         });
 
-        let averageIdle = @json($averageIdle);
+        let averageIdle = parseFloat(@json($averageIdle)).toFixed(0);
+        // let resultIdle = parseFloat((100 - averageIdle)).toFixed(0);
+        $('#value-idle').text(averageIdle + '%');
         let ctxIdle = document.getElementById('idleChart').getContext('2d');
         let idleChart = new Chart(ctxIdle, {
             type: 'doughnut',
             data: {
                 datasets: [{
                     data: [averageIdle, 100 - averageIdle],
-                    backgroundColor: ['#FF6384', '#36A2EB'], // Warna pertama dan kedua
+                    backgroundColor: ['#97BE5A', '#ECB176'], // Warna pertama dan kedua
                     borderWidth: 0
                 }]
             },
@@ -255,6 +319,19 @@
                     },
                     tooltip: {
                         enabled: false
+                    },
+                    datalabels: {
+                        color: '#000', // Color of the labels
+                        formatter: (value, context) => {
+                            // Only display the label for 'Utilisasi'
+                            return context.dataIndex === 0 ? context.chart.data.labels[context
+                                .dataIndex] : '';
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        align: 'right'
                     }
                 }
             }

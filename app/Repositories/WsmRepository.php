@@ -83,12 +83,50 @@ class WsmRepository
                 $alternatif_jumlah_bda[]   = $equipment->jumlah_bda;
             }
 
-            /** calculate the number */
-            foreach ($equipments as $index => $equipment) {
+            $cek_utilisasi = true;
+            $cek_availability = true;
+            $cek_reliability = true;
+            $cek_idle = true;
+
+            // Check if all the conditions are zero for any equipment
+            foreach ($equipments as $equipment) {
+                if ($equipment->utilisasi != 0) {
+                    $cek_utilisasi = false;
+                }
+                if ($equipment->availability != 0) {
+                    $cek_availability = false;
+                }
+                if ($equipment->reliability != 0) {
+                    $cek_reliability = false;
+                }
+                if ($equipment->idle != 0) {
+                    $cek_idle = false;
+                }
+            }
+
+            // Calculate the number
+            foreach ($equipments as $equipment) {
                 $_jam_tersedia = WeightedSumModel::number_devide_max_of($equipment->jam_tersedia, $alternatif_jam_tersedia);
                 $_jam_operasi  = WeightedSumModel::number_devide_max_of($equipment->jam_operasi, $alternatif_jam_operasi);
                 $_jam_bda      = WeightedSumModel::number_devide_max_of($equipment->jam_bda, $alternatif_jam_bda);
                 $_jumlah_bda   = WeightedSumModel::number_devide_max_of($equipment->jumlah_bda, $alternatif_jumlah_bda);
+
+                // Only set to 1 if the flag is true and the current value is zero
+                if ($cek_utilisasi && $equipment->utilisasi == 0) {
+                    $equipment->utilisasi = 1;
+                }
+
+                if ($cek_availability && $equipment->availability == 0) {
+                    $equipment->availability = 1;
+                }
+
+                if ($cek_reliability && $equipment->reliability == 0) {
+                    $equipment->reliability = 1;
+                }
+
+                if ($cek_idle && $equipment->idle == 0) {
+                    $equipment->idle = 1;
+                }
 
                 $_store[] = [
                     'kode'         => $equipment->kode,
@@ -103,6 +141,7 @@ class WsmRepository
                     'jumlah_bda'   => $_jumlah_bda * 100,
                 ];
             }
+
 
             /** store data to database */
             WsmPrepareNormalization::insert($_store);
